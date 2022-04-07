@@ -1,14 +1,25 @@
-import "reflect-metadata"
-import { DataSource } from "typeorm"
+import { DataSource } from "typeorm";
+import { User } from "./entity/User";
+import { UserDetail } from "./entity/UserDetail";
+import { Resume } from "./entity/Resume";
+
+const {
+  DATABASE_HOST,
+  DATABASE_NAME,
+  DATABASE_USER,
+  DATABASE_PASS,
+  DATABASE_CONNECTION,
+  DATABASE_PORT,
+} = process.env;
 
 export const myDataSource = new DataSource({
-    type: "mysql",
-    host: "127.0.0.1",
-    port: 3307,
-    username: "root",
-    password: "password",
-    database: "type_orm_db",
-    entities: ["src/entity/*.js"],
-    logging: true,
-    synchronize: true,
-})
+  type: DATABASE_CONNECTION,
+  host: DATABASE_HOST,
+  port: DATABASE_PORT,
+  username: DATABASE_USER,
+  password: DATABASE_PASS,
+  database: DATABASE_NAME,
+  entities: [User, UserDetail, Resume],
+  logging: true,
+  synchronize: true,
+});

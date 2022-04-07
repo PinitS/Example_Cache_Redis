@@ -1,4 +1,4 @@
-import { baseResponse } from "./../helpers/baseResponse/baseResponse";
+import { baseResponse } from "../helpers/baseResponse/baseResponse";
 import { Request, Response, NextFunction } from "express";
 import { mapResCode } from "../serverConfig/mapResCode";
 const { SERVER_SECRET_TOKEN } = process.env;

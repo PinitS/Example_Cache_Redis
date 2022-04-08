@@ -6,16 +6,20 @@ import {
   create,
   update,
   destroy,
+  getQueryOneToMany,
+  getQueryBelongTo,
 } from "../controllers/example.controller";
 import { mapResCode } from "../serverConfig/mapResCode";
 import { baseResponse } from "../helpers/baseResponse/baseResponse";
 const router = Router();
 
 router.get("/getAll", secretToken, getAll);
-router.get("/getOne", secretToken, getOne);
+router.get("/getOne/:id", secretToken, getOne);
 router.get("/create", secretToken, create);
 router.get("/update", secretToken, update);
 router.get("/destroy", secretToken, destroy);
+router.get("/getQueryOneToMany", secretToken, getQueryOneToMany);
+router.get("/getQueryBelongTo", secretToken, getQueryBelongTo);
 
 // router.get("/get/:id", (req: Request, res: Response) => {
 //   // const data = { params: req.params, query: req.query };

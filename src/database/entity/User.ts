@@ -1,9 +1,13 @@
+import { Resume } from './Resume';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
+  OneToMany
 } from "typeorm";
 
 @Entity()
@@ -16,6 +20,9 @@ export class User {
 
   @Column()
   lastName: string;
+
+  @OneToMany(() => Resume, (resume) => resume.user)
+  resumes: Resume[]
   
   @CreateDateColumn()
   createdAt: Date;

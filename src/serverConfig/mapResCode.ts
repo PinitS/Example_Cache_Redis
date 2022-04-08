@@ -22,5 +22,5 @@ export const mapResCode: MapResCodeInterface = {
   duplicateUnique: {
     code: 50403,
     message: "Duplicate Unique",
-  },
+  }
 };

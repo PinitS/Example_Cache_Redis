@@ -1,0 +1,7 @@
+{
+  "42S22": {
+    "code": "42S22",
+    "message": "Unknown column 'NaN' in 'where clause'",
+    "remark": "error with front end"
+  }
+}

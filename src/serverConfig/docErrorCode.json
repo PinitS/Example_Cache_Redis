@@ -3,5 +3,10 @@
     "code": "42S22",
     "message": "Unknown column 'NaN' in 'where clause'",
     "remark": "error with front end"
+  },
+  "1062":{
+    "code": "1062",
+    "message": "Duplicate entry",
+    "remark": "error with front end"
   }
 }

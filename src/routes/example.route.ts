@@ -12,7 +12,6 @@ import {
 import { mapResCode } from "../serverConfig/mapResCode";
 import { baseResponse } from "../helpers/baseResponse/baseResponse";
 const router = Router();
-
 router.get("/getAll", secretToken, getAll);
 router.get("/getOne/:id", secretToken, getOne);
 router.get("/create", secretToken, create);

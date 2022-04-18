@@ -21,5 +21,5 @@ export const myDataSource = new DataSource({
   database: DATABASE_NAME,
   entities: [User, UserDetail, Resume],
   logging: true,
-  synchronize: false,
+  synchronize: true,
 });

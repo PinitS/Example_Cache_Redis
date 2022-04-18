@@ -1,4 +1,4 @@
-import { Resume } from './Resume';
+import { Resume } from "./Resume";
 import {
   Entity,
   Column,
@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
   OneToOne,
   JoinColumn,
-  OneToMany
+  OneToMany,
 } from "typeorm";
 
 @Entity()
@@ -18,12 +18,15 @@ export class User {
   @Column()
   firstName: string;
 
+  @Column({ nullable: true })
+  middleName: string;
+
   @Column()
   lastName: string;
 
   @OneToMany(() => Resume, (resume) => resume.user)
-  resumes: Resume[]
-  
+  resumes: Resume[];
+
   @CreateDateColumn()
   createdAt: Date;
 

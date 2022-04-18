@@ -23,7 +23,13 @@ export const getAll = async (req: Request, res: Response) => {
     size,
     totalPage: calTotalPage(total, size),
   };
-  res.json(baseResponse(mapResCode.success.code, result, "Example Get All with pagination"));
+  res.json(
+    baseResponse(
+      mapResCode.success.code,
+      result,
+      "Example Get All with pagination"
+    )
+  );
 };
 
 export const getOne = async (req: Request, res: Response) => {
@@ -41,7 +47,18 @@ export const getOne = async (req: Request, res: Response) => {
 };
 
 export const create = async (req: Request, res: Response) => {
-  const data = null;
+  const user = new User();
+  user.firstName =
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15);
+  user.lastName =
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15);
+  user.middleName =
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15);
+  const result = await myDataSource.manager.save(user);
+  const data = result;
   res.json(baseResponse(mapResCode.success.code, data, "Example Create"));
 };
 

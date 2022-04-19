@@ -1,24 +1,28 @@
-import { User } from "./User";
+import { Example } from "./Example";
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToOne,
-  JoinColumn,
+  ManyToOne,
 } from "typeorm";
 
 @Entity()
-export class UserDetail {
+export class ExampleRelation {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  userId: number;
+  name: string;
 
   @Column()
-  something: string;
+  exampleId: number;
+
+  @ManyToOne(() => Example, (example) => example.exampleRelations, {
+    onDelete: "CASCADE",
+  })
+  example: Example;
 
   @CreateDateColumn()
   createdAt: Date;

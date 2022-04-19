@@ -1,7 +1,9 @@
+import { ExampleRelation } from "./entity/example/ExampleRelation";
+import { Example } from "./entity/example/Example";
 import { DataSource } from "typeorm";
-import { User } from "./entity/User";
-import { UserDetail } from "./entity/UserDetail";
-import { Resume } from "./entity/Resume";
+// import { User } from "./entity/User";
+// import { UserDetail } from "./entity/UserDetail";
+// import { Resume } from "./entity/Resume";
 
 const {
   DATABASE_HOST,
@@ -19,7 +21,7 @@ export const myDataSource = new DataSource({
   username: DATABASE_USER,
   password: DATABASE_PASS,
   database: DATABASE_NAME,
-  entities: [User, UserDetail, Resume],
+  entities: [Example, ExampleRelation],
   logging: true,
   synchronize: true,
 });

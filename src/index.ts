@@ -2,9 +2,14 @@ import "dotenv/config";
 import express, { Application, Request, Response } from "express";
 import exampleRoute from "./routes/example.route";
 import { myDataSource } from "../src/database/data-source";
+import bodyParser from "body-parser";
+import cors from "cors";
 
 const app: Application = express();
 const { SERVER_PORT } = process.env;
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 myDataSource
   .initialize()

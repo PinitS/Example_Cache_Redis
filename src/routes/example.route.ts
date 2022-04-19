@@ -6,24 +6,21 @@ import {
   create,
   update,
   destroy,
-  getQueryOneToMany,
+  getDropdownCache,
   getQueryBelongTo,
 } from "../controllers/example.controller";
 import { mapResCode } from "../serverConfig/mapResCode";
 import { baseResponse } from "../helpers/baseResponse/baseResponse";
+
 const router = Router();
+
 router.get("/getAll", secretToken, getAll);
 router.get("/getOne/:id", secretToken, getOne);
-router.get("/create", secretToken, create);
+router.post("/create", secretToken, create);
 router.get("/update", secretToken, update);
-router.get("/destroy", secretToken, destroy);
-router.get("/getQueryOneToMany", secretToken, getQueryOneToMany);
+router.get("/destroy/:id", secretToken, destroy);
+router.get("/getDropdownCache", secretToken, getDropdownCache);
 router.get("/getQueryBelongTo", secretToken, getQueryBelongTo);
-
-// router.get("/get/:id", (req: Request, res: Response) => {
-//   // const data = { params: req.params, query: req.query };
-//   // res.json(baseResponse(mapResCode.success.code, data, "Main Guide"));
-// });
 
 router.get("/middleware", secretToken, (req: Request, res: Response) => {
   const data = null;

@@ -6,7 +6,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-  JoinColumn,
   AfterLoad,
 } from "typeorm";
 
@@ -25,7 +24,7 @@ export class Example {
 
   @AfterLoad()
   setComputed() {
-    this.fullName = this.firstName + ' ' + this.lastName;
+    this.fullName = this.firstName + " " + this.lastName;
   }
 
   @OneToMany(

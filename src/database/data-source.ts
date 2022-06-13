@@ -1,9 +1,8 @@
-import { ExampleRelation } from "./entity/example/ExampleRelation";
-import { Example } from "./entity/example/Example";
+import { ChatMessage } from "./entity/chat/ChatMessage";
+import { ChatRoomUser } from "./entity/chat/ChatRoomUser";
+import { ChatRoom } from "./entity/chat/ChatRoom";
+import { User } from "./entity/chat/User";
 import { DataSource } from "typeorm";
-// import { User } from "./entity/User";
-// import { UserDetail } from "./entity/UserDetail";
-// import { Resume } from "./entity/Resume";
 
 const {
   DATABASE_HOST,
@@ -15,13 +14,14 @@ const {
 } = process.env;
 
 export const myDataSource = new DataSource({
+  timezone: "+7:00",
   type: DATABASE_CONNECTION,
   host: DATABASE_HOST,
   port: DATABASE_PORT,
   username: DATABASE_USER,
   password: DATABASE_PASS,
   database: DATABASE_NAME,
-  entities: [Example, ExampleRelation],
+  entities: [User, ChatRoom, ChatRoomUser, ChatMessage],
   logging: true,
   synchronize: true,
 });

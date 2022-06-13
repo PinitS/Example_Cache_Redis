@@ -1,9 +1,10 @@
 import "dotenv/config";
 import express, { Application, Request, Response } from "express";
-import exampleRoute from "./routes/example.route";
 import { myDataSource } from "../src/database/data-source";
 import bodyParser from "body-parser";
 import cors from "cors";
+import seedRoute from "./routes/seed.route";
+import chatRoute from "./routes/chat.route";
 
 const app: Application = express();
 const { SERVER_PORT } = process.env;
@@ -23,8 +24,10 @@ myDataSource
 app.get("/versions", (req: Request, res: Response) => {
   res.json({ code: 50200, data: null, message: "example ts versions 1.0.0.1" });
 });
+app.use("/seed", seedRoute);
+app.use("/chat", chatRoute);
 
-app.use("/example", exampleRoute);
+
 
 app.listen(SERVER_PORT, () => {
   console.log("Server is running on port :>> ", SERVER_PORT);

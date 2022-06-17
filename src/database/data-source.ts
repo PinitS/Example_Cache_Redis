@@ -1,7 +1,4 @@
-import { ChatMessage } from "./entity/chat/ChatMessage";
-import { ChatRoomUser } from "./entity/chat/ChatRoomUser";
-import { ChatRoom } from "./entity/chat/ChatRoom";
-import { User } from "./entity/chat/User";
+import { User } from "./entity/User";
 import { DataSource } from "typeorm";
 
 const {
@@ -21,7 +18,7 @@ export const myDataSource = new DataSource({
   username: DATABASE_USER,
   password: DATABASE_PASS,
   database: DATABASE_NAME,
-  entities: [User, ChatRoom, ChatRoomUser, ChatMessage],
+  entities: [User],
   logging: true,
   synchronize: true,
 });

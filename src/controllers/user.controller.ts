@@ -9,7 +9,6 @@ const { BCRYPT_SALT_ROUNDS } = process.env;
 export const getUsers = async (req: Request, res: Response) => {
   try {
     const { arrayUserId } = req.body;
-    console.log("arrayUserId", arrayUserId);
     const users = await myDataSource
       .getRepository(User)
       .find({ where: { id: In(arrayUserId) } });

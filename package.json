@@ -23,6 +23,7 @@
     "@socket.io/redis-emitter": "^4.1.1",
     "@types/lodash": "^4.14.181",
     "@types/redis": "^4.0.11",
+    "bcrypt": "^5.0.1",
     "bluebird": "^3.7.2",
     "cors": "^2.8.5",
     "dayjs": "^1.11.3",

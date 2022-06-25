@@ -1,5 +1,6 @@
-import { User } from "./entity/User";
+// import { POCRedis } from "./entity/POCRedis";
 import { DataSource } from "typeorm";
+import { User } from "./entity/User";
 
 const {
   DATABASE_HOST,

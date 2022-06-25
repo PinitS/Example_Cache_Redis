@@ -2,7 +2,7 @@ import { myDataSource } from "../database/data-source";
 import { Request, Response } from "express";
 import { mapResCode } from "../serverConfig/mapResCode";
 import { baseResponse } from "../helpers/baseResponse/baseResponse";
-import { User } from "../database/entity/User";
+import { POCRedis } from "../database/entity/POCRedis";
 import redis from "redis";
 import bluebird from "bluebird";
 import _ from "lodash";
@@ -11,7 +11,7 @@ bluebird.promisifyAll(redis);
 const client = redis.createClient();
 
 export const list = async (req: Request, res: Response) => {
-  const data = await myDataSource.getRepository(User).find();
+  const data = await myDataSource.getRepository(POCRedis).find();
   res.json(
     baseResponse(mapResCode.success.code, data, "For Example Cache Redis")
   );
@@ -19,15 +19,15 @@ export const list = async (req: Request, res: Response) => {
 
 export const listCache = async (req: Request, res: Response) => {
   const cacheData = await client
-    .getAsync("user")
+    .getAsync("POCRedis")
     .then((data: string) => {
       return JSON.parse(data);
     })
     .then(async (result: any) => {
       if (_.isEmpty(result)) {
-        const user = await myDataSource.getRepository(User).find();
-        await client.set("user", JSON.stringify(user));
-        return user;
+        const pocRedis = await myDataSource.getRepository(POCRedis).find();
+        await client.set("POCRedis", JSON.stringify(pocRedis));
+        return pocRedis;
       }
       return result;
     });
@@ -38,15 +38,15 @@ export const listCache = async (req: Request, res: Response) => {
 
 export const listCacheTime = async (req: Request, res: Response) => {
   const cacheData = await client
-    .getAsync("user")
+    .getAsync("POCRedis")
     .then((data: string) => {
       return JSON.parse(data);
     })
     .then(async (result: any) => {
       if (_.isEmpty(result)) {
-        const user = await myDataSource.getRepository(User).find();
-        await client.setex("user", 10, JSON.stringify(user));
-        return user;
+        const pocRedis = await myDataSource.getRepository(POCRedis).find();
+        await client.setex("POCRedis", 10, JSON.stringify(pocRedis));
+        return pocRedis;
       }
       return result;
     });
@@ -56,14 +56,14 @@ export const listCacheTime = async (req: Request, res: Response) => {
 };
 
 export const updateDataAndDeleteRedis = async (req: Request, res: Response) => {
-  // const data = await myDataSource.getRepository(User).findAndCount();
+  // const data = await myDataSource.getRepository(pocRedis).findAndCount();
   const { id, name } = req.params;
-  const data = await myDataSource.getRepository(User).findOne({
+  const data = await myDataSource.getRepository(POCRedis).findOne({
     where: { id: Number(id) },
   });
-  myDataSource.getRepository(User).merge(data, { name });
-  const result = await myDataSource.getRepository(User).save(data);
-  client.del("user");
+  myDataSource.getRepository(POCRedis).merge(data, { name });
+  const result = await myDataSource.getRepository(POCRedis).save(data);
+  client.del("POCRedis");
   res.json(
     baseResponse(
       mapResCode.success.code,
@@ -75,15 +75,15 @@ export const updateDataAndDeleteRedis = async (req: Request, res: Response) => {
 
 export const updateDataAndUpdateRedis = async (req: Request, res: Response) => {
   const { id, name } = req.params;
-  const data = await myDataSource.getRepository(User).findOne({
+  const data = await myDataSource.getRepository(POCRedis).findOne({
     where: { id: Number(id) },
   });
-  myDataSource.getRepository(User).merge(data, { name });
-  const resultData = await myDataSource.getRepository(User).save(data);
+  myDataSource.getRepository(POCRedis).merge(data, { name });
+  const resultData = await myDataSource.getRepository(POCRedis).save(data);
 
   // update Redis
   await client
-    .getAsync("user")
+    .getAsync("POCRedis")
     .then((data: string) => {
       return JSON.parse(data);
     })
@@ -92,7 +92,7 @@ export const updateDataAndUpdateRedis = async (req: Request, res: Response) => {
         const updateRedis = result.map((item: any, index: number) => {
           return item.id === resultData.id ? resultData : item;
         });
-        await client.set("user", JSON.stringify(updateRedis));
+        await client.set("POCRedis", JSON.stringify(updateRedis));
       }
     });
   // update Redis
@@ -106,6 +106,6 @@ export const updateDataAndUpdateRedis = async (req: Request, res: Response) => {
 };
 
 export const clearRedis = async (req: Request, res: Response) => {
-  client.del("user");
+  client.del("POCRedis");
   res.json(baseResponse(mapResCode.success.code, null, "Clear Cache Redis"));
 };

@@ -3,7 +3,7 @@ import { myDataSource } from "../database/data-source";
 import { Request, Response } from "express";
 import { mapResCode } from "../serverConfig/mapResCode";
 import { baseResponse } from "../helpers/baseResponse/baseResponse";
-import { User } from "../database/entity/User";
+import { POCRedis } from "../database/entity/POCRedis";
 import redis from "redis";
 const client = redis.createClient();
 
@@ -15,9 +15,9 @@ export const seed = async (req: Request, res: Response) => {
       name: uuid(),
     };
   });
-  const user = myDataSource.getRepository(User);
+  const user = myDataSource.getRepository(POCRedis);
   const responseData = await user.save(userArray);
-  client.del("user");
+  client.del("POCRedis");
   res.json(
     baseResponse(
       mapResCode.success.code,
